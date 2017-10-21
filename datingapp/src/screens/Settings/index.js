@@ -36,21 +36,15 @@ export default class Settings extends Component {
         }
     }
 
+    
     async componentWillMount() {
-        try {
-            const res = await API.getMyInfo();
-            const user = res.data.user;
-            console.log('user ' + JSON.stringify(user));
-            this.setState({
-                pictureUrl: user.pictureUrl,
-                name: user.name,
-                gender: user.gender,
-                interestedIn: user.interestedIn,
-                createdAt: this.formatDate(user.createdAt)
-            });
-        } catch(e) {
-            console.log(JSON.stringify(e));
-        }
+        const user = await API.getMyInfo(fbId);
+        this.setState({
+            pictureUrl: user.pictureUrl,
+            name: user.name,
+            gender: user.gender,
+            interestedIn: user.interestedIn
+        })
     }
     
     formatDate(date) {

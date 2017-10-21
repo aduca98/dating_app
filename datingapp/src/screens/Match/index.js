@@ -4,8 +4,9 @@ import {
   Text, 
   View 
 } from 'react-native';
+import { List, ListItem } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
-import List from '../../components/List';
+//import List from '../../components/List';
 
 export default class Match extends Component {
     
@@ -29,9 +30,26 @@ export default class Match extends Component {
         return(
             <View> 
                 <Text>Match Page... </Text>
-                {this.state.matches.length > 0  && 
+                {/* {this.state.matches.length > 0  && 
                     <List items={this.state.matches} detailsCallback={this.getInformation.bind(this)}/>
                 }
+
+            <ScrollView >
+                <List>
+                    {users.map((user) => (
+                        <ListItem
+                            //Return matches, store info locally, refer to local data here
+                            key={user.login.username}
+                            roundAvatar
+                            avatar={{ uri: user.picture.thumbnail }}
+                            title={`${user.name.first.toUpperCase()} ${user.name.last.toUpperCase()}`}
+                            subtitle={user.email}
+                            onPress={() => this.onLearnMore(user)}
+                        />
+                    ))}
+                </List>
+                </ScrollView> */}
+
             </View>
         )
     }
