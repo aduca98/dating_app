@@ -26,11 +26,29 @@ export default class Settings extends Component {
         }
     }
 
+    Profile = async () => {
+        try {
+            //Import API user Data
+            this.props.navigation.navigate("Profile");
+        } catch(e) {
+            console.log(e);
+        }
+    }
+
+    Description = async () => {
+        try {
+            //Import API user Data
+            this.props.navigation.navigate("Description");
+        } catch(e) {
+            console.log(e);
+        }
+    }
+
     
     async componentWillMount() {
         const user = await API.getMyInfo(fbId);
         this.setState({
-            pictureUrl: user.pictureUrl,
+            picture: user.picture,
             name: user.name,
             gender: user.gender,
             interestedIn: user.interestedIn
@@ -41,32 +59,20 @@ export default class Settings extends Component {
     render() {
         return(
             <View> 
-                <Container>
-                    <Content>
-                    {/* <Image
-                        source={this.state.picture} /> */}
                     <List>
-                        <ListItem>
+                        <ListItem onPress={this.Profile}>
                         <Text>Profile</Text>
                         </ListItem>
-                        <ListItem>
+                        <ListItem onPress={this.Description}>
                         <Text>Description</Text>
                         </ListItem>
                         <ListItem>
                         <Text>Notifications</Text>
                         </ListItem>
+                        <ListItem onPress={this.logout}>
+                        <Text>Logout</Text>
+                        </ListItem>
                     </List>
-                    </Content>
-                </Container>
-
-                {/* <Image
-                    source={this.state.picture} />
-                <Text> Name: {this.state.name} </Text>
-                <Text> Gender: {this.state.gender} </Text>
-                <Text> Interested in: {this.state.interestedIn} </Text> */}
-                <Button 
-                    title="Logout"
-                    onPress={this.logout}/>
             </View>
         )
     }
