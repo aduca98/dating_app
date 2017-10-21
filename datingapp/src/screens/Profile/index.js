@@ -4,7 +4,8 @@ import {
   Text, 
   View,
   TextInput,
-  Button
+  Button,
+  ScrollView
 } from 'react-native';
 import API from '../../api';
 
@@ -57,27 +58,31 @@ export default class Profile extends Component {
     
     render() {
         return(
-            <View> 
-                <Text> Your Name </Text>
-                <TextInput
+            
+            <ScrollView contentContainerStyle={styles.contentContainer}>
+            
+                <Text style={{fontSize:30, textDecorationLine: 'underline'}}> Your Name </Text>
+                <TextInput style={{fontSize:20}}
                     placeholder="Please enter your name"
                     value={this.state.name}
                     onChangeText={(text) => this.setState({"name": text})}
                     name="name"/>
                 {/*}Camera Roll{*/}
                 {/*}Age{*/}
-                <Text> Your Age </Text>
-                <TextInput
+                <Text style={{fontSize:30, textDecorationLine: 'underline'}}> Your Age </Text>
+                <TextInput style={{fontSize:20}}
                     placeholder="Please enter your age"
                     value={this.state.age}
                     onChangeText={(text) => this.setState({"age": text})}
                     name="age"/>
-                <Text> Your Gender </Text>
-                <TextInput
+                <Text style={{fontSize:30, textDecorationLine: 'underline'}}> Your Gender </Text>
+                <TextInput style={{fontSize:20}}
                     placeholder="Your gender"
+                    value={this.state.gender}
                     onChangeText={(text) => this.setState({"gender": text})}
                     name="gender"/>
-                <TextInput
+                <Text style={{fontSize:30, textDecorationLine: 'underline'}}> Your Gender Preference</Text>
+                <TextInput style={{fontSize:20}}
                     placeholder="Whatender you like ;)"
                     value={this.state.interestedIn}
                     onChangeText={(text) => {
@@ -86,10 +91,18 @@ export default class Profile extends Component {
                     name="interestedIn"/>
                 {/*}Gender via drop down menu?{*/}
                 {/*}Gender Preference via drop down menu?{*/}
-                <Button
-                    title="Press me"
-                    onPress={this.onSubmit} />
-            </View>
+                <View style={styles.buttonContainer}>
+                
+                    <Button 
+                        onPress={this.onSubmit}
+                        title="Update Profile"
+                        color="#ffffff"
+                        accessibilityLabel="Update Profile"
+                    />
+
+                </View>
+            
+            </ScrollView>
         )
     }
 }
@@ -98,3 +111,16 @@ Profile.navigationOptions = {
     title: "Finish Profile",
     headerLeft: null
 }
+
+const styles = StyleSheet.create({
+    buttonContainer: {
+        margin: 10, backgroundColor: '#228aff'
+    },
+    contentContainer: {
+        paddingVertical: 20,
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        alignItems: 'center'
+      }
+})
