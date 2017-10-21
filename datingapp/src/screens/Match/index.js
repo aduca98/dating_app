@@ -4,6 +4,7 @@ import {
   Text, 
   View 
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 export default class Match extends Component {
     render() {
@@ -14,5 +15,10 @@ export default class Match extends Component {
 }
 Match.navigationOptions = ({navigation}) => ({
     title: "Matches",
-    headerLeft: null
+    headerLeft: null,
+    tabBarIcon: ({ tintColor }) => (
+      <Ionicons 
+        name="ios-snow" 
+        size={32} 
+        color={tintColor}/>)
 })
