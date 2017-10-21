@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { 
   StyleSheet, 
-  Text, 
   View,
   TextInput,
-  Button,
   ScrollView
 } from 'react-native';
+import { Container, Header, Title, Content, Button, Icon, Text, Right, Body, Left, Picker, Form, Item as FormItem } from "native-base";
+const Item = Picker.Item;
 import API from '../../api';
 
 export default class Profile extends Component {
@@ -24,6 +24,9 @@ export default class Profile extends Component {
     constructor(props) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
+        this.state = {
+            interestedIn: "male"
+          };
     }
 
     async componentWillMount () {
@@ -97,54 +100,74 @@ export default class Profile extends Component {
             alert("ERROR " + e);
         }
     }
+
+     async onValueChange(value: string) {
+        this.setState({
+          interestedIn: value,
+          gender: value
+        });
+      }
     
     render() {
         return(
             
             <ScrollView contentContainerStyle={styles.contentContainer}>
-            
-                <Text style={{fontSize:30, textDecorationLine: 'underline'}}> Your Name </Text>
-                <TextInput style={{fontSize:20}}
-                    placeholder="Please enter your name"
-                    value={this.state.name}
-                    onChangeText={(text) => this.setState({"name": text})}
-                    name="name"/>
-                {/*}Camera Roll{*/}
-                {/*}Age{*/}
-                <Text style={{fontSize:30, textDecorationLine: 'underline'}}> Your Age </Text>
-                <TextInput style={{fontSize:20}}
-                    placeholder="Please enter your age"
-                    value={this.state.age}
-                    onChangeText={(text) => this.setState({"age": text})}
-                    name="age"/>
-                <Text style={{fontSize:30, textDecorationLine: 'underline'}}> Your Gender </Text>
-                <TextInput style={{fontSize:20}}
-                    placeholder="Your gender"
-                    value={this.state.gender}
-                    onChangeText={(text) => this.setState({"gender": text})}
-                    name="gender"/>
-                <Text style={{fontSize:30, textDecorationLine: 'underline'}}> Your Gender Preference</Text>
-                <TextInput style={{fontSize:20}}
-                    placeholder="Whatender you like ;)"
-                    value={this.state.interestedIn}
-                    onChangeText={(text) => {
-                        this.setState({"interestedIn": text})
-                    }}
-                    name="interestedIn"/>
-                {/*}Gender via drop down menu?{*/}
-                {/*}Gender Preference via drop down menu?{*/}
-                <View style={styles.buttonContainer}>
+                <Container>
+                    <Text style={{fontSize:30, textDecorationLine: 'underline'}}> Your Name </Text>
+                    <TextInput style={{fontSize:20}}
+                        placeholder="Please enter your name"
+                        value={this.state.name}
+                        onChangeText={(text) => this.setState({"name": text})}
+                        name="name"/>
+                    {/*}Camera Roll{*/}
+                    <Text style={{fontSize:30, textDecorationLine: 'underline'}}> Your Age </Text>
+                    <TextInput style={{fontSize:20}}
+                        placeholder="Please enter your age"
+                        value={this.state.age}
+                        onChangeText={(text) => this.setState({"age": text})}
+                        name="age"/>
+                    <Text style={{fontSize:30, textDecorationLine: 'underline'}}> Your Gender </Text>
+                  
+                    <Content>
+                    <Form>
+                        <Picker
+                        iosHeader="Select one"
+                        mode="dropdown"
+                        selectedValue={this.state.gender}
+                        onValueChange={this.onValueChange.bind(this)}
+                        >
+                        <Item label="Male" value="male" />
+                        <Item label="Female" value="female" />
+                        </Picker>
+                    </Form>
+                    </Content>
+                
+                <Text style={{fontSize:30, textDecorationLine: 'underline'}}> Match's Gender</Text>
+                
+                    <Content>
+                    <Form>
+                        <Picker
+                        iosHeader="Select one"
+                        mode="dropdown"
+                        selectedValue={this.state.interestedIn}
+                        onValueChange={this.onValueChange.bind(this)}
+                        >
+                        <Item label="Male" value="male" />
+                        <Item label="Female" value="female" />
+                        </Picker>
+                    </Form>
+                    </Content>
                 
                     <Button 
+                        block
                         onPress={this.onSubmit}
-                        title="Update Profile"
-                        color="#ffffff"
-                        accessibilityLabel="Update Profile"
-                    />
-
-                </View>
-            
+                        accessibilityLabel="Update Profile">
+                        <Text>Update Profile</Text>
+                    </Button>
+                
+                </Container>
             </ScrollView>
+            
         )
     }
 }
@@ -159,7 +182,7 @@ const styles = StyleSheet.create({
         margin: 10, backgroundColor: '#228aff'
     },
     contentContainer: {
-        paddingVertical: 20,
+        paddingVertical: 10,
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-around',
