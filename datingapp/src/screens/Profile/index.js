@@ -3,11 +3,13 @@ import {
   StyleSheet, 
   View,
   TextInput,
-  ScrollView
+  ScrollView,
+  Image
 } from 'react-native';
 import { Container, Header, Title, Content, Button, Icon, Text, Right, Body, Left, Picker, Form, Item as FormItem } from "native-base";
 const Item = Picker.Item;
 import API from '../../api';
+import { ImagePicker } from 'expo';
 
 export default class Profile extends Component {
     
@@ -18,7 +20,8 @@ export default class Profile extends Component {
         picture: "",
         age: "",
         gender: "",
-        interestedIn: ""
+        interestedIn: "",
+        image: null,
     }
 
     constructor(props) {
@@ -62,7 +65,7 @@ export default class Profile extends Component {
             name,
             fbId,
             fbToken,
-            pictureUrl,
+            picture,
             gender,
             interestedIn
         } = this.state;
@@ -82,7 +85,7 @@ export default class Profile extends Component {
             name: this.state.name,
             fbId: this.state.fbId,
             fbToken: this.state.fbToken,
-            pictureUrl: this.state.picture,
+            picture: this.state.picture,
             gender: this.state.gender.toLowerCase(),
             interestedIn: this.state.interestedIn.toLowerCase()
         }
@@ -101,25 +104,58 @@ export default class Profile extends Component {
         }
     }
 
-     async onValueChange(value: string) {
+     async onValueChange1(value: string){
         this.setState({
-          interestedIn: value,
           gender: value
         });
       }
+
+      async onValueChange2(value: string) {
+        this.setState({
+          interestedIn: value
+        });
+      }
+
+      _pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+          allowsEditing: true,
+          aspect: [4, 3],
+        });
+    
+        console.log(result);
+    
+        if (!result.cancelled) {
+          this.setState({ picture: result.uri });
+        }
+      };
     
     render() {
+        // alert(picture);
+        let { picture } = this.state;
         return(
             
             <ScrollView contentContainerStyle={styles.contentContainer}>
                 <Container>
+                <Content>
                     <Text style={{fontSize:30, textDecorationLine: 'underline'}}> Your Name </Text>
                     <TextInput style={{fontSize:20}}
                         placeholder="Please enter your name"
                         value={this.state.name}
                         onChangeText={(text) => this.setState({"name": text})}
                         name="name"/>
+
                     {/*}Camera Roll{*/}
+                    <Text style={{fontSize:30, textDecorationLine: 'underline'}}> Profile Picture </Text>
+                    <Button 
+                        iconCenter
+                        onPress={this._pickImage}
+                        accessibilityLabel="Upload Different Photo">
+                        <Icon name='camera' />
+                        <Text>Upload Photo</Text>
+                        </Button>
+                        {picture &&
+                            <Image source={{ uri: picture }} style={{ width: 200, height: 200 }} />}
+
                     <Text style={{fontSize:30, textDecorationLine: 'underline'}}> Your Age </Text>
                     <TextInput style={{fontSize:20}}
                         placeholder="Please enter your age"
@@ -128,35 +164,35 @@ export default class Profile extends Component {
                         name="age"/>
                     <Text style={{fontSize:30, textDecorationLine: 'underline'}}> Your Gender </Text>
                   
-                    <Content>
+                    
                     <Form>
                         <Picker
                         iosHeader="Select one"
                         mode="dropdown"
                         selectedValue={this.state.gender}
-                        onValueChange={this.onValueChange.bind(this)}
+                        onValueChange={this.onValueChange1.bind(this)}
                         >
                         <Item label="Male" value="male" />
                         <Item label="Female" value="female" />
                         </Picker>
                     </Form>
-                    </Content>
+                    
                 
                 <Text style={{fontSize:30, textDecorationLine: 'underline'}}> Match's Gender</Text>
                 
-                    <Content>
+                    
                     <Form>
                         <Picker
                         iosHeader="Select one"
                         mode="dropdown"
                         selectedValue={this.state.interestedIn}
-                        onValueChange={this.onValueChange.bind(this)}
+                        onValueChange={this.onValueChange2.bind(this)}
                         >
                         <Item label="Male" value="male" />
                         <Item label="Female" value="female" />
                         </Picker>
                     </Form>
-                    </Content>
+                    
                 
                     <Button 
                         block
@@ -164,7 +200,7 @@ export default class Profile extends Component {
                         accessibilityLabel="Update Profile">
                         <Text>Update Profile</Text>
                     </Button>
-                
+                    </Content>
                 </Container>
             </ScrollView>
             
@@ -182,10 +218,10 @@ const styles = StyleSheet.create({
         margin: 10, backgroundColor: '#228aff'
     },
     contentContainer: {
-        paddingVertical: 10,
+        paddingVertical: 100,
         flex: 1,
         flexDirection: 'column',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         alignItems: 'center'
       }
 })
