@@ -9,7 +9,10 @@ export default class Login extends Component {
     render() {
 
         return(
-            <Text> {this.props.title} Hello World </Text>
+            <View>
+                
+                <Text style={{marginTop: 100}}> Login </Text>
+            </View>
         )
     }
 }
