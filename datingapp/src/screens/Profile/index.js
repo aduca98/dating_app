@@ -12,7 +12,10 @@ export default class Profile extends Component {
         name: "",
         fbId: "",
         fbToken: "",
-        picture: ""
+        picture: "",
+        age: "",
+        gender: "",
+        genderPreference: ""
 
     }
 
@@ -23,12 +26,13 @@ export default class Profile extends Component {
     componentWillMount = () => {
         const {params} = props.navigation.state;
         alert(JSON.stringify(params));
-        const {name, fbId,  fbToken, picture} = params;
+        const {name, fbId,  fbToken, picture, gender} = params;
         this.setState({
             name, 
             fbId,
             fbToken,
-            picture
+            picture,
+            gender
         })
     }
 
@@ -37,6 +41,14 @@ export default class Profile extends Component {
         const value = e.target.value;
         this.setState({
             [name]: value
+        });
+    }
+
+    updateInput = (e) => {
+        const age = e.target.age;
+        const value = e.target.value;
+        this.setState({
+            [age]: value
         });
     }
     
