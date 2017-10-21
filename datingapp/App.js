@@ -9,7 +9,7 @@ import Login from './src/screens/Login';
 export default class App extends React.Component {
 
   state = {
-    title: "Hello"
+    title: "Good bye"
   }
 
   constructor(props) {
