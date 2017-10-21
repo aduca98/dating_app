@@ -5,7 +5,16 @@ import {
   Image
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Container, Header, Content, Button, List, ListItem, Text } from 'native-base';
+import { 
+    Container, 
+    Header, 
+    Content, 
+    Button, 
+    List, 
+    ListItem, 
+    Text 
+} from 'native-base';
+
 import API from '../../api';
 
 export default class Settings extends Component {
@@ -15,6 +24,7 @@ export default class Settings extends Component {
         name: "",
         gender: "",
         interestedIn: "",
+        createdAt: ""
     }
 
     logout = async () => {
@@ -26,47 +36,42 @@ export default class Settings extends Component {
         }
     }
 
-    
     async componentWillMount() {
-        const user = await API.getMyInfo(fbId);
-        this.setState({
-            pictureUrl: user.pictureUrl,
-            name: user.name,
-            gender: user.gender,
-            interestedIn: user.interestedIn
-        })
+        try {
+            const res = await API.getMyInfo();
+            const user = res.data.user;
+            console.log('user ' + JSON.stringify(user));
+            this.setState({
+                pictureUrl: user.pictureUrl,
+                name: user.name,
+                gender: user.gender,
+                interestedIn: user.interestedIn,
+                createdAt: this.formatDate(user.createdAt)
+            });
+        } catch(e) {
+            console.log(JSON.stringify(e));
+        }
     }
     
+    formatDate(date) {
+        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        return date.toLocaleDateString(options);
+    }
 
     render() {
         return(
             <View> 
-                <Container>
-                    <Content>
-                    {/* <Image
-                        source={this.state.picture} /> */}
-                    <List>
-                        <ListItem>
-                        <Text>Profile</Text>
-                        </ListItem>
-                        <ListItem>
-                        <Text>Description</Text>
-                        </ListItem>
-                        <ListItem>
-                        <Text>Notifications</Text>
-                        </ListItem>
-                    </List>
-                    </Content>
-                </Container>
+                <Button 
+                    onPress={this.logout}>
+                    <Text> Logout </Text>
+                </Button>
 
-                {/* <Image
+                <Image
                     source={this.state.picture} />
                 <Text> Name: {this.state.name} </Text>
                 <Text> Gender: {this.state.gender} </Text>
-                <Text> Interested in: {this.state.interestedIn} </Text> */}
-                <Button 
-                    title="Logout"
-                    onPress={this.logout}/>
+                <Text> Interested in: {this.state.interestedIn} </Text>
+                <Text> Created at {this.state.createdAt} </Text>
             </View>
         )
     }

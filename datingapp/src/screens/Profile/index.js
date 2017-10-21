@@ -122,11 +122,12 @@ export default class Profile extends Component {
           aspect: [4, 3],
         });
     
-        console.log(result);
-    
+        console.log(result);        
         if (!result.cancelled) {
           this.setState({ picture: result.uri });
         }
+        
+        const res = await API.uploadFile(result);
       };
     
     render() {

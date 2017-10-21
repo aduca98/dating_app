@@ -60,17 +60,17 @@ export default class Login extends Component {
                 }
                
                 // Check to see if a user already has an account...
-                // const user = await API.getMyInfo(fbId);
-                // alert(user);
+                const res2 = await API.getMyInfo(data.id);
+                const user = res2.data.user;
 
                 // Check is a user w/o description
-                // if(user.fbId && (!user.selfDescription || !user.matchDescription)) {
-                //     return this.props.navigation.navigate("Description");
-                // } else if (user.fbId && user.selfDescription && user.matchDescription) {
-                //     return this.props.navigation.navigate("Match");
-                // } else {
+                if(user.fbId && (!user.selfDescription || !user.matchDescription)) {
+                    return this.props.navigation.navigate("Description");
+                } else if (user.fbId && user.selfDescription && user.matchDescription) {
+                    return this.props.navigation.navigate("Match");
+                } else {
                     return this.props.navigation.navigate("Profile", {...params});
-                //}
+                }
 
             } catch(e) {
                 alert(e);

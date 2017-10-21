@@ -53,4 +53,21 @@ export default class API {
     static async getMatches() {
         return true;
     }
+
+    static async uploadFile(results) {
+        const jwt = await API.getJwt();
+        var data = new FormData();
+        data.append('photo', {
+            uri: results.uri,
+            type: 'image',
+            name: new Date().getTime() + "_" + Math.random() * 10000
+        });
+
+        return await axios.post(`/api/upload`, data, {
+            headers: {
+                'Authorization': `bearer: ${jwt}`
+            }
+        });
+
+    }
 }
