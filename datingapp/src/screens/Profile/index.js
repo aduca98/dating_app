@@ -45,15 +45,15 @@ export default class Profile extends Component {
             });
             const jwt = await API.getJwt();
 
-            if(jwt) {
-                console.log("USER LOGGED IN");
-                const user = await API.getMyInfo();
-                this.setState({
-                    name: user.name,
-                    gender: user.gender,
-                    interestedIn: user.interestedIn
-                })
-            }
+            // if(jwt) {
+            //     console.log("USER LOGGED IN");
+            //     const user = await API.getMyInfo();
+            //     this.setState({
+            //         name: user.name,
+            //         gender: user.gender,
+            //         interestedIn: user.interestedIn
+            //     })
+            // }
         } catch(e) {
             console.log(e);
         }
@@ -137,15 +137,15 @@ export default class Profile extends Component {
             <ScrollView contentContainerStyle={styles.contentContainer}>
                 <Container>
                 <Content>
-                    <Text style={{fontSize:30, textDecorationLine: 'underline'}}> Your Name </Text>
-                    <TextInput style={{fontSize:20}}
+                    <Text style={{flex: 2, fontSize:30, textDecorationLine: 'underline'}}> Your Name </Text>
+                    <TextInput style={{flex: 1, fontSize:20}}
                         placeholder="Please enter your name"
                         value={this.state.name}
                         onChangeText={(text) => this.setState({"name": text})}
                         name="name"/>
 
                     {/*}Camera Roll{*/}
-                    <Text style={{fontSize:30, textDecorationLine: 'underline'}}> Profile Picture </Text>
+                    <Text style={{flex: 2, fontSize:30, textDecorationLine: 'underline'}}> Profile Picture </Text>
                     <Button 
                         iconCenter
                         onPress={this._pickImage}
@@ -156,15 +156,14 @@ export default class Profile extends Component {
                         {picture &&
                             <Image source={{ uri: picture }} style={{ width: 200, height: 200 }} />}
 
-                    <Text style={{fontSize:30, textDecorationLine: 'underline'}}> Your Age </Text>
-                    <TextInput style={{fontSize:20}}
+                    <Text style={{flex: 2, fontSize:30, textDecorationLine: 'underline'}}> Your Age </Text>
+                    <TextInput style={{flex: 1, fontSize:20}}
                         placeholder="Please enter your age"
                         value={this.state.age}
                         onChangeText={(text) => this.setState({"age": text})}
                         name="age"/>
-                    <Text style={{fontSize:30, textDecorationLine: 'underline'}}> Your Gender </Text>
-                  
-                    
+
+                    <Text style={{flex: 2, fontSize:30, textDecorationLine: 'underline'}}> Your Gender </Text>
                     <Form>
                         <Picker
                         iosHeader="Select one"
@@ -178,9 +177,7 @@ export default class Profile extends Component {
                     </Form>
                     
                 
-                <Text style={{fontSize:30, textDecorationLine: 'underline'}}> Match's Gender</Text>
-                
-                    
+                <Text style={{flex: 2, fontSize:30, textDecorationLine: 'underline'}}> Match's Gender</Text>
                     <Form>
                         <Picker
                         iosHeader="Select one"
@@ -218,10 +215,10 @@ const styles = StyleSheet.create({
         margin: 10, backgroundColor: '#228aff'
     },
     contentContainer: {
-        paddingVertical: 100,
+        paddingVertical: 25,
         flex: 1,
         flexDirection: 'column',
-        justifyContent: 'space-between',
-        alignItems: 'center'
+        justifyContent: 'flex-start',
+        alignItems: 'stretch'
       }
 })

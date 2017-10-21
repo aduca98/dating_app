@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { 
-  StyleSheet, 
-  Text, 
+  StyleSheet,  
   View,
-  Button,
   Image
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { Container, Header, Content, Button, List, ListItem, Text } from 'native-base';
 import API from '../../api';
 
 export default class Settings extends Component {
@@ -42,12 +41,29 @@ export default class Settings extends Component {
     render() {
         return(
             <View> 
-                <Text>Settings </Text>
-                <Image
-                    source={this.state.pictureUrl} />
+                <Container>
+                    <Content>
+                    {/* <Image
+                        source={this.state.picture} /> */}
+                    <List>
+                        <ListItem>
+                        <Text>Profile</Text>
+                        </ListItem>
+                        <ListItem>
+                        <Text>Description</Text>
+                        </ListItem>
+                        <ListItem>
+                        <Text>Notifications</Text>
+                        </ListItem>
+                    </List>
+                    </Content>
+                </Container>
+
+                {/* <Image
+                    source={this.state.picture} />
                 <Text> Name: {this.state.name} </Text>
                 <Text> Gender: {this.state.gender} </Text>
-                <Text> Interested in: {this.state.interestedIn} </Text>
+                <Text> Interested in: {this.state.interestedIn} </Text> */}
                 <Button 
                     title="Logout"
                     onPress={this.logout}/>
