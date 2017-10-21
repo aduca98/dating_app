@@ -28,29 +28,29 @@ export default class Match extends Component {
 
     render() {
         return(
-            // <View> 
-            //     <Text>Match Page... </Text>
-            //     {this.state.matches.length > 0  && 
-            //         <List items={this.state.matches} detailsCallback={this.getInformation.bind(this)}/>
-            //     }
+            <View> 
+                <Text>Match Page... </Text>
+                {/* {this.state.matches.length > 0  && 
+                    <List items={this.state.matches} detailsCallback={this.getInformation.bind(this)}/>
+                }
 
-            // <ScrollView >
-            //     <List>
-            //         {users.map((user) => (
-            //             <ListItem
-            //                 //Return matches, store info locally, refer to local data here
-            //                 key={user.login.username}
-            //                 roundAvatar
-            //                 avatar={{ uri: user.picture.thumbnail }}
-            //                 title={`${user.name.first.toUpperCase()} ${user.name.last.toUpperCase()}`}
-            //                 subtitle={user.email}
-            //                 onPress={() => this.onLearnMore(user)}
-            //             />
-            //         ))}
-            //     </List>
-            // </ScrollView>
+            <ScrollView >
+                <List>
+                    {users.map((user) => (
+                        <ListItem
+                            //Return matches, store info locally, refer to local data here
+                            key={user.login.username}
+                            roundAvatar
+                            avatar={{ uri: user.picture.thumbnail }}
+                            title={`${user.name.first.toUpperCase()} ${user.name.last.toUpperCase()}`}
+                            subtitle={user.email}
+                            onPress={() => this.onLearnMore(user)}
+                        />
+                    ))}
+                </List>
+                </ScrollView> */}
 
-            {/* </View> */}
+            </View>
         )
     }
 }
