@@ -5,10 +5,17 @@ import {
   View 
 } from 'react-native';
 
-export default class Match extends Component {
+export default class Profile extends Component {
     render() {
         return(
-            <Text> Hello </Text>
+            <View> 
+                <Text> Hello </Text>
+            </View>
         )
     }
+}
+
+Profile.navigationOptions = {
+    title: "Finish Profile",
+    headerLeft: null
 }

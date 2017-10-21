@@ -11,27 +11,42 @@ import {
 // Screens
 import Login from '../screens/Login';
 import Match from '../screens/Match';
+import Profile from '../screens/Profile';
 
 // Stacknavigator
 const RootStack = StackNavigator(
   {
     Match: {
         screen: Match
-    }
+    },
   },
   {      
-    initialRouteName: 'Match',
-    headerMode: 'none',
+    initialRouteName: 'Profile',
+    headerMode: 'screen',
   }
 );
 
+var onboardingNav = StackNavigator(
+    {
+        Profile: {
+            screen: Profile
+        }
+    }, 
+    {
+        mode: "modal",
+        headerMode: 'screen'
+    }
+)
 var RootNavigation = StackNavigator(
     {
+        Root: {
+            screen: RootStack
+        },
         Login: {
             screen: Login
         },
-        Root: {
-            screen: RootStack
+        Onboarding: {
+            screen: onboardingNav
         }
     }, 
     {

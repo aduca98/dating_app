@@ -22,7 +22,7 @@ export default class Login extends Component {
         super(props);
     }
 
-    async logIn = () => {
+    logIn = async () => {
         const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync('123094455049704', {
             permissions: ['public_profile', 'email'], 
         });
@@ -35,11 +35,8 @@ export default class Login extends Component {
             const name = data.name;
             const fbId = data.id;
             const picture = data.picture.data.url;
-            
-            // Send to our server to create...
-            this.setState({
 
-            });
+            this.props.navigation.navigate("Profile", {name, fbId, token, picture});
         }
     }  
 
