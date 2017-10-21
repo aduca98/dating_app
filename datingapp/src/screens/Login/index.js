@@ -6,25 +6,42 @@ import {
     Image,
     StyleSheet
 } from 'react-native';
-
- import Expo, {} from 'expo'
+import axios from 'axios';
+import Expo, {} from 'expo'
 
 
 export default class Login extends Component {
 
-    async logIn() {
+    state = {
+        name: "",
+        id: "",
+        token: ""
+    }
+
+    constructor(props) {
+        super(props);
+    }
+
+    async logIn = () => {
         const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync('123094455049704', {
-            permissions: ['public_profile'], 
-            });
+            permissions: ['public_profile', 'email'], 
+        });
+
         if (type === 'success') {
             // Get the user's name using Facebook's Graph API
-            const response = await fetch(
-            `https://graph.facebook.com/me?access_token=${token}`);
-            alert(
-            `Logged in! Hi ${(await response.json()).name}!`,
-            );
-    }
-}   
+            const res = await axios.get(`https://graph.facebook.com/me?fields=id,name,picture&access_token=${token}`);
+            const data = res.data;
+
+            const name = data.name;
+            const fbId = data.id;
+            const picture = data.picture.data.url;
+            
+            // Send to our server to create...
+            this.setState({
+
+            });
+        }
+    }  
 
     render() {
 
@@ -61,6 +78,9 @@ export default class Login extends Component {
     }
 }
 
+Login.navigationOptions = ({navigation}) => ({
+    title: "Login",
+})
 
 const styles = StyleSheet.create({
     buttonContainer: {
