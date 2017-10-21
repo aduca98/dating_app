@@ -9,9 +9,12 @@ export default class API {
         return await axios.post(`/api/create-user`, data);
     }
 
-    static async getMyInfo() {
+    static async getMyInfo(fbId) {
         const jwt = await API.getJwt();
         return await axios.get(`/api/my-info`, { 
+            params: {
+                fbId: fbId
+            },
             headers: {
                 'Content-type': 'application/json',
                 'Authorization': `bearer: ${jwt}`
@@ -43,4 +46,11 @@ export default class API {
         return jwt;
     }
 
+    static async logout() {
+        await AsyncStorage.removeItem('@jwt');
+    }
+
+    static async getMatches() {
+        return true;
+    }
 }
