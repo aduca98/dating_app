@@ -33,13 +33,14 @@ export default class Login extends Component {
                 const res = await axios.get(`https://graph.facebook.com/me?fields=id,name,picture,gender&access_token=${token}`);
                 const data = res.data;
 
-                alert(JSON.stringify(data));
-
-                const name = data.name;
-                const fbId = data.id;
-                const picture = data.picture.data.url;
-                
-                this.props.navigation.navigate("Profile", {name, fbId, fbToken: token, picture, gender});
+                const params = {
+                    name: data.name,
+                    fbId: data.id,
+                    picture: data.picture.data.url,
+                    gender: data.gender,
+                }
+               
+                this.props.navigation.navigate("Profile", {...params});
 
             } catch(e) {
                 alert(e);
@@ -88,6 +89,6 @@ Login.navigationOptions = ({navigation}) => ({
 
 const styles = StyleSheet.create({
     buttonContainer: {
-      margin: 10, backgroundColor: '#3b5998'
+        margin: 10, backgroundColor: '#3b5998'
     },
-  })
+})
