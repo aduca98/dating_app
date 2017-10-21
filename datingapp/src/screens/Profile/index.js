@@ -22,6 +22,7 @@ export default class Profile extends Component {
 
     constructor(props) {
         super(props);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     componentWillMount() {
@@ -42,14 +43,16 @@ export default class Profile extends Component {
     }
 
     async onSubmit() {
-        const res = await API.createUser({
+        var data = {
             name: this.state.name,
             fbId: this.state.fbId,
             fbToken: this.state.fbToken,
             pictureUrl: this.state.picture,
-            interestedIn: this.state.gender
-        });
-        alert(res);
+            gender: this.state.gender.toLowerCase(),
+            interestedIn: this.state.interestedIn.toLowerCase()
+        }
+        // alert(JSON.stringify(data));
+        const res = await API.createUser(data);
     }
     
     render() {
@@ -59,7 +62,7 @@ export default class Profile extends Component {
                 <TextInput
                     placeholder="Please enter your name"
                     value={this.state.name}
-                    onChange={(value) => this.setState({"name": value})}
+                    onChangeText={(text) => this.setState({"name": text})}
                     name="name"/>
                 {/*}Camera Roll{*/}
                 {/*}Age{*/}
@@ -67,24 +70,25 @@ export default class Profile extends Component {
                 <TextInput
                     placeholder="Please enter your age"
                     value={this.state.age}
-                    onChange={(value) => this.setState({"age": value})}
+                    onChangeText={(text) => this.setState({"age": text})}
                     name="age"/>
                 <Text> Your Gender </Text>
                 <TextInput
                     placeholder="Your gender"
-                    value={this.state.gender}
-                    onChange={(value) => this.setState({"gender": value})}
+                    onChangeText={(text) => this.setState({"gender": text})}
                     name="gender"/>
                 <TextInput
-                    placeholder="What gender you like ;)"
+                    placeholder="Whatender you like ;)"
                     value={this.state.interestedIn}
-                    onChange={(value) => this.setState({"interestedIn": value})}
+                    onChangeText={(text) => {
+                        this.setState({"interestedIn": text})
+                    }}
                     name="interestedIn"/>
                 {/*}Gender via drop down menu?{*/}
                 {/*}Gender Preference via drop down menu?{*/}
                 <Button
                     title="Press me"
-                    onPress={this.onSubmit.bind(this)} />
+                    onPress={this.onSubmit} />
             </View>
         )
     }
