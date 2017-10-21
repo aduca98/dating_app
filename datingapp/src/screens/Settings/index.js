@@ -5,10 +5,14 @@ import {
   View 
 } from 'react-native';
 
-export default class Match extends Component {
+export default class Settings extends Component {
     render() {
         return(
-            <Text> Hello </Text>
+            <Text> Settings </Text>
         )
     }
 }
+Settings.navigationOptions = ({navigation}) => ({
+    title: "Settings",
+    headerLeft: null
+})

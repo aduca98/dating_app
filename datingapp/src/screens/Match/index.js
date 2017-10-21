@@ -8,7 +8,11 @@ import {
 export default class Match extends Component {
     render() {
         return(
-            <Text> Hello </Text>
+            <Text> Match Page... </Text>
         )
     }
 }
+Match.navigationOptions = ({navigation}) => ({
+    title: "Matches",
+    headerLeft: null
+})

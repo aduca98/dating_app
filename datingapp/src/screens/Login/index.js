@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import Expo, {} from 'expo'
-
+import API from '../../api';
 
 export default class Login extends Component {
 
@@ -20,6 +20,25 @@ export default class Login extends Component {
 
     constructor(props) {
         super(props);
+    }
+
+    async componentWillMount() {
+        const token = await API.getJwt();
+        if(token) {
+            try {
+                console.log("TOKEN. USER ALREADY LOGGED IN");
+                const res = await API.getMyInfo();
+                const user = res.data.user;
+                if(!user.selfDescription|| !user.matchDescription) {
+                    this.props.navigation.navigate("Description");
+                } else {
+                    this.props.navigation.navigate("Match");
+                }
+            } catch(e) {
+                console.log(e);
+            }
+            // this.props.navigation.navigate("Match");
+        }
     }
 
     logIn = async () => {

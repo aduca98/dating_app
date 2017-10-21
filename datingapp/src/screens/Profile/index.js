@@ -25,7 +25,7 @@ export default class Profile extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    componentWillMount() {
+    async componentWillMount () {
         const {params} = this.props.navigation.state;
         try {
             const {name, fbId,  fbToken, picture, gender} = params;
@@ -35,14 +35,45 @@ export default class Profile extends Component {
                 fbToken,
                 picture,
                 gender
-            })
+            });
+            const jwt = await API.getJwt();
+
+            if(jwt) {
+                console.log("USER LOGGED IN");
+                const user = await API.getMyInfo();
+                this.setState({
+                    name: user.name,
+                    gender: user.gender,
+                    interestedIn: user.interestedIn
+                })
+            }
         } catch(e) {
             console.log(e);
         }
         
     }
 
+    _checkFields() {
+        const {
+            name,
+            fbId,
+            fbToken,
+            pictureUrl,
+            gender,
+            interestedIn
+        } = this.state;
+        if(!name || !gender || !interestedIn) {
+            return false;
+        }
+        return true;
+    }
+
     async onSubmit() {
+        var filledFields = this._checkFields();
+        // if(!filledFields) {
+        //     alert("Missing fields.");
+        //     return;
+        // }
         var data = {
             name: this.state.name,
             fbId: this.state.fbId,
@@ -51,8 +82,19 @@ export default class Profile extends Component {
             gender: this.state.gender.toLowerCase(),
             interestedIn: this.state.interestedIn.toLowerCase()
         }
-        // alert(JSON.stringify(data));
-        const res = await API.createUser(data);
+
+        try { 
+            // alert(JSON.stringify(data));
+            const res = await API.createUser(data);
+            // Set jwt
+            const jwt = res.data.token;
+            await API.storeJwt(jwt);
+            console.log(await API.getJwt());
+            this.props.navigation.navigate("Description");
+
+        } catch(e) {
+            alert("ERROR " + e);
+        }
     }
     
     render() {
@@ -95,6 +137,6 @@ export default class Profile extends Component {
 }
 
 Profile.navigationOptions = {
-    title: "Finish Profile",
+    title: "Profile",
     headerLeft: null
 }
