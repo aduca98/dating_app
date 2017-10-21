@@ -29,14 +29,21 @@ export default class Login extends Component {
 
         if (type === 'success') {
             // Get the user's name using Facebook's Graph API
-            const res = await axios.get(`https://graph.facebook.com/me?fields=id,name,picture&access_token=${token}`);
-            const data = res.data;
+            try {
+                const res = await axios.get(`https://graph.facebook.com/me?fields=id,name,picture,gender&access_token=${token}`);
+                const data = res.data;
 
-            const name = data.name;
-            const fbId = data.id;
-            const picture = data.picture.data.url;
+                alert(JSON.stringify(data));
 
-            this.props.navigation.navigate("Profile", {name, fbId, token, picture});
+                const name = data.name;
+                const fbId = data.id;
+                const picture = data.picture.data.url;
+                
+                this.props.navigation.navigate("Profile", {name, fbId, fbToken: token, picture, gender});
+
+            } catch(e) {
+                alert(e);
+            }
         }
     }  
 
