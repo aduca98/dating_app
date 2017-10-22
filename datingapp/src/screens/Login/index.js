@@ -58,15 +58,15 @@ export default class Login extends Component {
                     picture: data.picture.data.url,
                     gender: data.gender,
                 }
-               
+                
                 // Check to see if a user already has an account...
                 const res2 = await API.getMyInfo(data.id);
                 const user = res2.data.user;
 
                 // Check is a user w/o description
-                if(user.fbId && (!user.selfDescription || !user.matchDescription)) {
+                if(user && user.fbId && (!user.selfDescription || !user.matchDescription)) {
                     return this.props.navigation.navigate("Description");
-                } else if (user.fbId && user.selfDescription && user.matchDescription) {
+                } else if (user && user.fbId && user.selfDescription && user.matchDescription) {
                     return this.props.navigation.navigate("Match");
                 } else {
                     return this.props.navigation.navigate("Profile", {...params});
