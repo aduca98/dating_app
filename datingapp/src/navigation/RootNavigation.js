@@ -16,13 +16,24 @@ import Profile from '../screens/Profile';
 import Description from '../screens/Description';
 import Settings from '../screens/Settings';
 
+const settingsNavigation = StackNavigator(
+    {
+        Settings: {
+            screen: Settings
+        }
+    }, 
+    {
+        initialRouteName: 'Settings',
+        animationEnabled: true
+    }
+)
 const tabs = TabNavigator(
     {
         Match: {
             screen: Match,
         },
-        Settings: {
-            screen: Settings
+        SettingsNavigation: {
+            screen: settingsNavigation
         }
     }, 
     {
