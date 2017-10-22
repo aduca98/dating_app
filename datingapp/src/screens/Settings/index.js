@@ -52,20 +52,41 @@ export default class Settings extends Component {
         return date.toLocaleDateString(options);
     }
 
+    Profile = async () => {
+        try {
+            //Import API user Data
+            this.props.navigation.navigate("Profile");
+        } catch(e) {
+            console.log(e);
+        }
+    }
+
+    Description = async () => {
+        try {
+            //Import API user Data
+            this.props.navigation.navigate("Description");
+        } catch(e) {
+            console.log(e);
+        }
+    }
+    
     render() {
         return(
             <View> 
-                <Button 
-                    onPress={this.logout}>
-                    <Text> Logout </Text>
-                </Button>
-
-                <Image
-                    source={this.state.picture} />
-                <Text> Name: {this.state.name} </Text>
-                <Text> Gender: {this.state.gender} </Text>
-                <Text> Interested in: {this.state.interestedIn} </Text>
-                <Text> Created at {this.state.createdAt} </Text>
+                    <List>
+                        <ListItem onPress={this.Profile}>
+                        <Text>Profile</Text>
+                        </ListItem>
+                        <ListItem onPress={this.Description}>
+                        <Text>Description</Text>
+                        </ListItem>
+                        <ListItem>
+                        <Text>Notifications</Text>
+                        </ListItem>
+                        <ListItem onPress={this.logout}>
+                        <Text>Logout</Text>
+                        </ListItem>
+                    </List>
             </View>
         )
     }
@@ -79,3 +100,10 @@ Settings.navigationOptions = ({navigation}) => ({
         size={32} 
         color={tintColor}/>)
 })
+
+
+
+// <Button 
+//                     onPress={this.logout}>
+//                     <Text> Logout </Text>
+//                 </Button>

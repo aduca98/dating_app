@@ -93,7 +93,7 @@ export default class Login extends Component {
                 />
 
                 <Text style={{fontSize:30}}>  
-                    Welcome to DatingApp!!
+                    Welcome to Quill!!
                 </Text>
                 
                 <View style={styles.buttonContainer}>
