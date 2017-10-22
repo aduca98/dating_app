@@ -42,7 +42,7 @@ export default class Settings extends Component {
 
     
     async componentWillMount() {
-        const user = await API.getMyInfo(fbId);
+        const user = await API.getMyInfo();
         this.setState({
             pictureUrl: user.pictureUrl,
             name: user.name,

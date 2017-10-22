@@ -67,6 +67,8 @@ export default class Login extends Component {
                 if(user && user.fbId && (!user.selfDescription || !user.matchDescription)) {
                     return this.props.navigation.navigate("Description");
                 } else if (user && user.fbId && user.selfDescription && user.matchDescription) {
+                    const token = res2.data.token;
+                    await API.storeJwt(token);
                     return this.props.navigation.navigate("Match");
                 } else {
                     return this.props.navigation.navigate("Profile", {...params});
