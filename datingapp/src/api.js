@@ -51,7 +51,13 @@ export default class API {
     }
 
     static async getMatches() {
-        return true;
+        const jwt = await API.getJwt();
+        return await axios.get(`/api/find-matches`, { 
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': `bearer: ${jwt}`
+            }
+        });
     }
 
     static async uploadFile(results) {

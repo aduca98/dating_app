@@ -7,16 +7,20 @@ import {
 import { List, ListItem } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 //import List from '../../components/List';
+import API from '../../api';
 
 export default class Match extends Component {
     
     async componentWillMount() {
-        const matches = []//await API.getMatches();
+        const res = await API.getMatches();
+        const matches = res.data.matches;
+        alert(JSON.stringify(matches));
         this.setState({
             matches,
         });
     }  
     
+
     // Not used yet...
     filterMatches() {
         return this.state.matches;
