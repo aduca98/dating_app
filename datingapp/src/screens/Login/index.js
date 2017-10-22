@@ -63,6 +63,8 @@ export default class Login extends Component {
                 const res2 = await API.getMyInfo(data.id);
                 const user = res2.data.user;
 
+                alert(user);
+                
                 // Check is a user w/o description
                 if(user && user.fbId && (!user.selfDescription || !user.matchDescription)) {
                     return this.props.navigation.navigate("Description");
