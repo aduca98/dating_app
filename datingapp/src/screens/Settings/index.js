@@ -12,8 +12,12 @@ import {
     Button, 
     List, 
     ListItem, 
-    Text 
+    Text,
+    Left,
+    Icon
 } from 'native-base';
+
+
 
 import API from '../../api';
 
