@@ -12,6 +12,7 @@ import API from '../../api';
 export default class Match extends Component {
     
     async componentWillMount() {
+        console.log(await API.getJwt());
         const res = await API.getMatches();
         const matches = res.data.matches;
         alert(JSON.stringify(matches));
